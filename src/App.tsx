@@ -2,11 +2,12 @@ import { useState } from 'react';
 import BenchmarkComparison from './components/BenchmarkComparison';
 import FraudProofSimulator from './components/FraudProofSimulator';
 import ZkProofVerification from './components/ZkProofVerification';
+import NftGenerationSimulator from './components/NftGenerationSimulator';
 
 function App() {
   const [account, setAccount] = useState<string | null>(null);
   const [connecting, setConnecting] = useState(false);
-  const [activeTab, setActiveTab] = useState<'benchmarks' | 'simulator' | 'zkproofs'>('benchmarks');
+  const [activeTab, setActiveTab] = useState<'benchmarks' | 'simulator' | 'zkproofs' | 'nfts'>('benchmarks');
   
   async function connectWallet() {
     if (!window.ethereum) {
@@ -81,55 +82,13 @@ function App() {
           </div>
         </header>
         
-        {/* Intro section */}
-        <section className="mb-12">
-          <div className="bg-slate-800/30 backdrop-blur-sm rounded-3xl p-8 border border-slate-700/50 shadow-xl">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-              Demonstrating the Power of Arbitrum Stylus
-            </h2>
-            <p className="text-slate-300 mb-6 max-w-3xl text-lg">
-              ArbiProof Simulator provides an interactive demonstration of Arbitrum's fraud proof mechanism powered by Stylus. 
-              Explore how Stylus dramatically reduces gas costs for computationally intensive operations.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-700/80">
-                <div className="text-blue-400 mb-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <h3 className="font-bold text-white mb-1">Gas Efficiency</h3>
-                <p className="text-slate-400 text-sm">Up to 84% reduction in gas costs compared to Solidity implementations</p>
-              </div>
-              <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-700/80">
-                <div className="text-emerald-400 mb-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                </div>
-                <h3 className="font-bold text-white mb-1">Enhanced Security</h3>
-                <p className="text-slate-400 text-sm">Makes previously unaffordable security operations economically viable</p>
-              </div>
-              <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-700/80">
-                <div className="text-purple-400 mb-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
-                  </svg>
-                </div>
-                <h3 className="font-bold text-white mb-1">Interoperability</h3>
-                <p className="text-slate-400 text-sm">Seamless integration with existing Ethereum smart contracts</p>
-              </div>
-            </div>
-          </div>
-        </section>
-        
         {/* Main content tabs */}
         <section>
           <div className="mb-6">
-            <div className="flex space-x-2 rounded-xl bg-slate-800/20 p-1 backdrop-blur-sm border border-slate-700/50">
+            <div className="flex flex-wrap space-x-0 sm:space-x-2 space-y-2 sm:space-y-0 rounded-xl bg-slate-800/20 p-1 backdrop-blur-sm border border-slate-700/50">
               <button
                 onClick={() => setActiveTab('benchmarks')}
-                className={`w-full rounded-lg py-3 text-base font-medium leading-5 transition-all duration-200 focus:outline-none
+                className={`w-full sm:w-auto flex-grow rounded-lg py-3 px-4 text-base font-medium leading-5 transition-all duration-200 focus:outline-none
                   ${activeTab === 'benchmarks' 
                     ? 'bg-gradient-to-r from-blue-600 to-emerald-600 text-white shadow-lg' 
                     : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
@@ -140,7 +99,7 @@ function App() {
               </button>
               <button
                 onClick={() => setActiveTab('simulator')}
-                className={`w-full rounded-lg py-3 text-base font-medium leading-5 transition-all duration-200 focus:outline-none
+                className={`w-full sm:w-auto flex-grow rounded-lg py-3 px-4 text-base font-medium leading-5 transition-all duration-200 focus:outline-none
                   ${activeTab === 'simulator' 
                     ? 'bg-gradient-to-r from-blue-600 to-emerald-600 text-white shadow-lg' 
                     : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
@@ -151,7 +110,7 @@ function App() {
               </button>
               <button
                 onClick={() => setActiveTab('zkproofs')}
-                className={`w-full rounded-lg py-3 text-base font-medium leading-5 transition-all duration-200 focus:outline-none
+                className={`w-full sm:w-auto flex-grow rounded-lg py-3 px-4 text-base font-medium leading-5 transition-all duration-200 focus:outline-none
                   ${activeTab === 'zkproofs' 
                     ? 'bg-gradient-to-r from-blue-600 to-emerald-600 text-white shadow-lg' 
                     : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
@@ -160,6 +119,17 @@ function App() {
               >
                 ZK Proof Verification
               </button>
+              <button
+                onClick={() => setActiveTab('nfts')}
+                className={`w-full sm:w-auto flex-grow rounded-lg py-3 px-4 text-base font-medium leading-5 transition-all duration-200 focus:outline-none
+                  ${activeTab === 'nfts' 
+                    ? 'bg-gradient-to-r from-blue-600 to-emerald-600 text-white shadow-lg' 
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                  }`
+                }
+              >
+                On-Chain NFTs
+              </button>
             </div>
           </div>
           
@@ -167,6 +137,7 @@ function App() {
             {activeTab === 'benchmarks' && <BenchmarkComparison />}
             {activeTab === 'simulator' && <FraudProofSimulator account={account} />}
             {activeTab === 'zkproofs' && <ZkProofVerification />}
+            {activeTab === 'nfts' && <NftGenerationSimulator account={account} />}
           </div>
         </section>
         
@@ -176,7 +147,7 @@ function App() {
             ArbiProof Simulator - Demonstrating the Power of Arbitrum Stylus
           </p>
           <p>
-            Built for Eth Bucharest Hackathon 2023
+            Built for ETH Bucharest Hackathon 2023
           </p>
         </footer>
       </div>
