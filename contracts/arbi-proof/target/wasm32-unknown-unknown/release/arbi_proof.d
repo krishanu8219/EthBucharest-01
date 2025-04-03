@@ -1,0 +1,1 @@
+/Users/krishanu8219/Documents/Eth\ Bucharest/project/contracts/arbi-proof/target/wasm32-unknown-unknown/release/arbi_proof.wasm: /Users/krishanu8219/Documents/Eth\ Bucharest/project/contracts/arbi-proof/src/lib.rs

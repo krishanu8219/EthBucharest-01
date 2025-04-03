@@ -1,0 +1,1 @@
+StorageMap<stylus_sdk::alloy_primitives::FixedBytes<32>, StorageAddress>
