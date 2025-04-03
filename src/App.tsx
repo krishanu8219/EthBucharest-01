@@ -3,11 +3,13 @@ import BenchmarkComparison from './components/BenchmarkComparison';
 import FraudProofSimulator from './components/FraudProofSimulator';
 import ZkProofVerification from './components/ZkProofVerification';
 import NftGenerationSimulator from './components/NftGenerationSimulator';
+import FinancialComputations from './components/FinancialComputations';
+import GameLogicSimulator from './components/GameLogicSimulator';
 
 function App() {
   const [account, setAccount] = useState<string | null>(null);
   const [connecting, setConnecting] = useState(false);
-  const [activeTab, setActiveTab] = useState<'benchmarks' | 'simulator' | 'zkproofs' | 'nfts'>('benchmarks');
+  const [activeTab, setActiveTab] = useState<'benchmarks' | 'simulator' | 'zkproofs' | 'nfts' | 'finance' | 'games'>('benchmarks');
   
   async function connectWallet() {
     if (!window.ethereum) {
@@ -120,6 +122,17 @@ function App() {
                 ZK Proof Verification
               </button>
               <button
+                onClick={() => setActiveTab('finance')}
+                className={`w-full sm:w-auto flex-grow rounded-lg py-3 px-4 text-base font-medium leading-5 transition-all duration-200 focus:outline-none
+                  ${activeTab === 'finance' 
+                    ? 'bg-gradient-to-r from-blue-600 to-emerald-600 text-white shadow-lg' 
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                  }`
+                }
+              >
+                Financial Algorithms
+              </button>
+              <button
                 onClick={() => setActiveTab('nfts')}
                 className={`w-full sm:w-auto flex-grow rounded-lg py-3 px-4 text-base font-medium leading-5 transition-all duration-200 focus:outline-none
                   ${activeTab === 'nfts' 
@@ -130,6 +143,17 @@ function App() {
               >
                 On-Chain NFTs
               </button>
+              <button
+                onClick={() => setActiveTab('games')}
+                className={`w-full sm:w-auto flex-grow rounded-lg py-3 px-4 text-base font-medium leading-5 transition-all duration-200 focus:outline-none
+                  ${activeTab === 'games' 
+                    ? 'bg-gradient-to-r from-blue-600 to-emerald-600 text-white shadow-lg' 
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                  }`
+                }
+              >
+                Game Logic Simulator
+              </button>
             </div>
           </div>
           
@@ -138,6 +162,8 @@ function App() {
             {activeTab === 'simulator' && <FraudProofSimulator account={account} />}
             {activeTab === 'zkproofs' && <ZkProofVerification />}
             {activeTab === 'nfts' && <NftGenerationSimulator account={account} />}
+            {activeTab === 'finance' && <FinancialComputations account={account} />}
+            {activeTab === 'games' && <GameLogicSimulator account={account} />}
           </div>
         </section>
         
